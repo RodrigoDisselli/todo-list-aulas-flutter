@@ -1,9 +1,11 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:todo_list/helpers/task_helper.dart';
 import 'package:todo_list/models/task.dart';
 import 'package:todo_list/views/task_dialog.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,14 +31,35 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Lista de Tarefas')),
+      resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+        
+        Text("Lista de tarefas"),
+        //precisa adicionar nas dependencias e importar aqui no arquivo documentação: https://pub.dev/packages/percent_indicator
+        new CircularPercentIndicator(
+          radius: 45.0,
+          lineWidth: 5.0,
+          percent: getProgress(_taskList),
+          center: new Text((getProgress(_taskList) * 100).toInt().toString() + '%'),
+          progressColor: Colors.lightBlue,
+        )
+          
+        ]),
+      ),
+        
+        
       floatingActionButton:
           FloatingActionButton(child: Icon(Icons.add), onPressed: _addNewTask),
-      body: _buildTaskList(),
+      body:  _buildTaskList(),
     );
   }
 
   Widget _buildTaskList() {
+    print(getProgress(_taskList));
+
     if (_taskList.isEmpty) {
       return Center(
         child: _loading ? CircularProgressIndicator() : Text("Sem tarefas!"),
@@ -114,6 +137,67 @@ class _HomePageState extends State<HomePage> {
         }
       });
     }
+  }
+
+  getProgress(list){
+    int i;
+    double percent = 1;
+    double contDone = 0;
+
+    for(i = 0; i < list.length; i++){
+      print(list[i].isDone);
+      if(list[i].isDone == true){
+        contDone ++;
+      }
+    }
+
+    percent = (contDone / list.length);
+
+    if(percent == 0){
+      percent = .0;
+    }if((percent >= 0.05) && (percent < 0.10)){
+      percent = .05;
+    }if((percent >= 0.10) && (percent < 0.15)){
+      percent = .1;
+    }if((percent >= 0.15) && (percent < 0.20)){
+      percent = .15;
+    }if((percent >= 0.20) && (percent < 0.25)){
+      percent = .20;
+    }if((percent >= 0.25) && (percent < 0.30)){
+      percent = .25;
+    }if((percent >= 0.30) && (percent < 0.35)){
+      percent = .30;
+    }if((percent >= 0.35) && (percent < 0.40)){
+      percent = .35;
+    }if((percent >= 0.40) && (percent < 0.45)){
+      percent = .40;
+    }if((percent >= 0.45) && (percent < 0.50)){
+      percent = .45;
+    }if((percent >= 0.50) && (percent < 0.55)){
+      percent = .50;
+    }if((percent >= 0.55) && (percent < 0.60)){
+      percent = .55;
+    }if((percent >= 0.60) && (percent < 0.65)){
+      percent = .60;
+    }if((percent >= 0.65) && (percent < 0.70)){
+      percent = .65;
+    }if((percent >= 0.70) && (percent < 0.75)){
+      percent = .70;
+    }if((percent >= 0.75) && (percent < 0.80)){
+      percent = .75;
+    }if((percent >= 0.80) && (percent < 0.85)){
+      percent = .80;
+    }if((percent >= 0.85) && (percent < 0.90)){
+      percent = .85;
+    }if((percent >= 0.90) && (percent < 0.95)){
+      percent = .90;
+    }if((percent >= 0.95) && (percent < 1)){
+      percent = .95;
+    }if((percent > 0.95)){
+      percent = 1;
+    }
+
+    return percent;
   }
 
   void _deleteTask({Task deletedTask, int index}) {

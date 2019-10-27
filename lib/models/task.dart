@@ -11,6 +11,8 @@ class Task {
     this.isDone = false,
   });
 
+  
+
   factory Task.fromMap(Map<String, dynamic> json) => Task(
         id: json["id"],
         title: json["title"],
@@ -30,4 +32,6 @@ class Task {
 
     return map;
   }
+
+  
 }
