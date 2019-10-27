@@ -42,7 +42,10 @@ class _HomePageState extends State<HomePage> {
         child: _loading ? CircularProgressIndicator() : Text("Sem tarefas!"),
       );
     } else {
-      return ListView.builder(
+      return ListView.separated(
+        separatorBuilder: (context, index) => Divider(
+        color: Colors.black38,
+        ),
         itemBuilder: _buildTaskItemSlidable,
         itemCount: _taskList.length,
       );

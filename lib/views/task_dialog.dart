@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/models/task.dart';
 
+GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+TextEditingController _itemNameController = TextEditingController();
+TextEditingController _itemDescriptionController = TextEditingController();
+
 class TaskDialog extends StatefulWidget {
   final Task task;
 
@@ -45,11 +50,14 @@ class _TaskDialogState extends State<TaskDialog> {
         children: <Widget>[
           TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Título'),
+              decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'Título'),
               autofocus: true),
-          TextField(
+          Padding(padding:  EdgeInsets.only(top: 24.0),),
+          TextFormField(
+              keyboardType: TextInputType.multiline,
+              maxLines: 2,
               controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Descrição')),
+              decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'Descrição')),
         ],
       ),
       actions: <Widget>[
@@ -69,6 +77,37 @@ class _TaskDialogState extends State<TaskDialog> {
           },
         ),
       ],
+    );
+  }
+
+
+  Form buildForm() {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          buildTextFormField(
+              label: "Nome",
+              error: "Dê um nome para sua tarefa",
+              controller: _itemNameController),
+          buildTextFormField(
+              label: "Descrição",
+              error: "Adicione uma descrição para sua tarefa",
+              controller: _itemDescriptionController),
+        ],
+      ),
+    );
+  }
+
+  Widget buildTextFormField(
+      {TextEditingController controller, String error, String label}) {
+    return TextFormField(
+      decoration: InputDecoration(labelText: label),
+      controller: controller,
+      validator: (text) {
+        return text.isEmpty ? error : null;
+      },
     );
   }
 }
