@@ -153,50 +153,6 @@ class _HomePageState extends State<HomePage> {
 
     percent = (contDone / list.length);
 
-    if(percent == 0){
-      percent = .0;
-    }if((percent >= 0.05) && (percent < 0.10)){
-      percent = .05;
-    }if((percent >= 0.10) && (percent < 0.15)){
-      percent = .1;
-    }if((percent >= 0.15) && (percent < 0.20)){
-      percent = .15;
-    }if((percent >= 0.20) && (percent < 0.25)){
-      percent = .20;
-    }if((percent >= 0.25) && (percent < 0.30)){
-      percent = .25;
-    }if((percent >= 0.30) && (percent < 0.35)){
-      percent = .30;
-    }if((percent >= 0.35) && (percent < 0.40)){
-      percent = .35;
-    }if((percent >= 0.40) && (percent < 0.45)){
-      percent = .40;
-    }if((percent >= 0.45) && (percent < 0.50)){
-      percent = .45;
-    }if((percent >= 0.50) && (percent < 0.55)){
-      percent = .50;
-    }if((percent >= 0.55) && (percent < 0.60)){
-      percent = .55;
-    }if((percent >= 0.60) && (percent < 0.65)){
-      percent = .60;
-    }if((percent >= 0.65) && (percent < 0.70)){
-      percent = .65;
-    }if((percent >= 0.70) && (percent < 0.75)){
-      percent = .70;
-    }if((percent >= 0.75) && (percent < 0.80)){
-      percent = .75;
-    }if((percent >= 0.80) && (percent < 0.85)){
-      percent = .80;
-    }if((percent >= 0.85) && (percent < 0.90)){
-      percent = .85;
-    }if((percent >= 0.90) && (percent < 0.95)){
-      percent = .90;
-    }if((percent >= 0.95) && (percent < 1)){
-      percent = .95;
-    }if((percent > 0.95)){
-      percent = 1;
-    }
-
     return percent;
   }
 
