@@ -58,7 +58,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildTaskList() {
-    print(getProgress(_taskList));
 
     if (_taskList.isEmpty) {
       return Center(
@@ -80,7 +79,20 @@ class _HomePageState extends State<HomePage> {
     return CheckboxListTile(
       value: task.isDone,
       title: Text(task.title),
-      subtitle: Text(task.description),
+      subtitle: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Text('prioridade: ' + task.priority.toString(), style: TextStyle(color: Colors.teal),),              
+            ]
+          ),
+          Row(
+            children: <Widget>[
+              Text(task.description),              
+            ]
+          ),
+        ],
+      ),
       onChanged: (bool isChecked) {
         setState(() {
           task.isDone = isChecked;
@@ -141,7 +153,7 @@ class _HomePageState extends State<HomePage> {
 
   getProgress(list){
     int i;
-    double percent = 1;
+    double percent = 0;
     double contDone = 0;
 
     for(i = 0; i < list.length; i++){
@@ -151,7 +163,8 @@ class _HomePageState extends State<HomePage> {
       }
     }
 
-    percent = (contDone / list.length);
+    // list.length == 0 ? percent = 0 : percent = (contDone / list.length);
+    percent  = list.length == 0 ? 0 : (contDone / list.length);
 
     return percent;
   }
